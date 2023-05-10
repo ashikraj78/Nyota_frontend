@@ -1,124 +1,222 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import OtpForm from "@/components/OtpForm";
+import RegisterForm from "@/components/RegisterForm";
+import { Inter } from "next/font/google";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [otpForm, setOtpForm] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState(false);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div class="relative isolate overflow-hidden bg-gray-900">
+      <img
+        src="https://afar-production.imgix.net/uploads/images/afar_post_headers/images/8ChmAyKmyq/original_indian-wedding-ritual-henna.jpg?auto=compress,format&fit=crop&crop=top&lossless=true&w=1080"
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
+      ></img>
+      <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+        <svg
+          class="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+          viewBox="0 0 1155 678"
+        >
+          <path
+            fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
+            fill-opacity=".2"
+            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+          />
+          <defs>
+            <linearGradient
+              id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
+              x1="1155.49"
+              x2="-78.208"
+              y1=".177"
+              y2="474.645"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#9089FC"></stop>
+              <stop offset="1" stop-color="#FF80B5"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="px-6 lg:px-8">
+        <nav class="flex items-center justify-between pt-6" aria-label="Global">
+          <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <img
+                class="h-24 rounded"
+                // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                src="/images/logo.png"
+                alt=""
+              ></img>
+            </a>
+          </div>
+          <div class="flex lg:hidden">
+            <button
+              type="button"
+              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a
+              href="/register"
+              class="text-xl font-semibold leading-6 text-black"
+            >
+              Register <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </nav>
+        <div role="dialog" aria-modal="true">
+          <div
+            focus="true"
+            class="fixed inset-0 z-10 overflow-y-auto bg-gray-900 px-6 py-6 lg:hidden"
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <div class="flex items-center justify-between">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img
+                  class="h-8"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  alt=""
+                ></img>
+              </a>
+              <button
+                type="button"
+                class="-m-2.5 rounded-md p-2.5 text-gray-400"
+              >
+                <span class="sr-only">Close menu</span>
+                <svg
+                  class="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-6 flow-root">
+              <div class="-my-6 divide-y divide-gray-500/25">
+                <div class="space-y-2 py-6">
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
+                  >
+                    Product
+                  </a>
+
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
+                  >
+                    Features
+                  </a>
+
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
+                  >
+                    Marketplace
+                  </a>
+
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
+                  >
+                    Company
+                  </a>
+                </div>
+                <div class="py-6">
+                  <a
+                    href="#"
+                    class="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-white hover:bg-gray-400/10"
+                  >
+                    Log in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div class="text-center">
+            <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Personalise wedding invitation video
+            </h1>
+            <p class="mt-6 text-lg leading-8 text-gray-300">
+              Share your love story with a personalized wedding invitation video
+              that sets the tone for your special day. Let us help you create a
+              truly unforgettable and unique invitation experience
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="/dashboard"
+                class="rounded-md bg-indigo-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+              >
+                Get started
+              </a>
+              <a href="#" class="text-base font-semibold leading-7 text-white">
+                Learn more <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+        <svg
+          class="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
+          viewBox="0 0 1155 678"
+        >
+          <path
+            fill="url(#ecb5b0c9-546c-4772-8c71-4d3f06d544bc)"
+            fill-opacity=".2"
+            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+          />
+          <defs>
+            <linearGradient
+              id="ecb5b0c9-546c-4772-8c71-4d3f06d544bc"
+              x1="1155.49"
+              x2="-78.208"
+              y1=".177"
+              y2="474.645"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#9089FC"></stop>
+              <stop offset="1" stop-color="#FF80B5"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
